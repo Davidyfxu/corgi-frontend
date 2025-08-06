@@ -238,7 +238,7 @@ const DataManagement: React.FC = () => {
 
         {/* Webhook Integration */}
         <Col xs={24} lg={12}>
-          <Card title="Webhook Integration">
+          <Card title="Webhook Integration" className={'h-full'}>
             <Form
               form={form}
               layout="vertical"

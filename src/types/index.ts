@@ -52,16 +52,21 @@ export interface ABTestResults {
 }
 
 // Inference Stats Types
+// Inference Stats Types
 export interface InferenceStats {
-  totalRequests: number;
-  averageLatency: number;
-  throughputPerSecond: number;
-  errorRate: number;
-  last24Hours: {
+  total_inferences: number;
+  avg_latency_ms: number;
+  max_latency_ms: number;
+  min_latency_ms: number;
+  p95_latency_ms: number;
+  p99_latency_ms: number;
+  cache_hit_rate: number;
+  sub_millisecond_rate: number;
+  last24Hours?: {
     requests: number;
     avgLatency: number;
   };
-  modelPerformance: {
+  modelPerformance?: {
     accuracy: number;
     precision: number;
     recall: number;

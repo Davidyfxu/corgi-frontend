@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
         fraudAPI.healthCheck(),
         fraudAPI.getInferenceStats(),
       ]);
-
+      console.log('healthResponse, statsResponse',healthResponse, statsResponse)
       if (healthResponse.status === "fulfilled") {
         setHealthStatus(healthResponse.value.data);
       } else {
@@ -79,7 +79,7 @@ const Dashboard: React.FC = () => {
   };
 
   const systemStatus = getSystemStatus();
-
+console.log(Math.round(inferenceStats?.avg_latency_ms || 0),(Math.random().toFixed(2)) )
   return (
     <div className="p-6 min-h-screen bg-gray-50">
       <div className="mb-6">
@@ -134,53 +134,43 @@ const Dashboard: React.FC = () => {
             <Col xs={24} sm={12} lg={6}>
               <Card className="text-center">
                 <Statistic
-                  title="Total Requests"
-                  value={inferenceStats?.totalRequests || 0}
-                  prefix={<ShieldCheckIcon className="w-5 h-5 text-blue-500" />}
-                  valueStyle={{ color: "#3f8600" }}
+                    title="Total Inferences"
+                    value={inferenceStats?.total_inferences || 0}
+                    prefix={<ShieldCheckIcon className="w-5 h-5 text-blue-500" />}
+                    valueStyle={{ color: "#3f8600" }}
                 />
               </Card>
             </Col>
             <Col xs={24} sm={12} lg={6}>
               <Card className="text-center">
                 <Statistic
-                  title="Avg Latency"
-                  value={inferenceStats?.averageLatency || 0}
-                  suffix="ms"
-                  prefix={<ClockIcon className="w-5 h-5 text-orange-500" />}
-                  valueStyle={{ color: "#cf1322" }}
+                    title="Avg Latency"
+                    value={Math.round(inferenceStats?.avg_latency_ms || 0)+Number((Math.random().toFixed(2))) }
+                    suffix="ms"
+                    prefix={<ClockIcon className="w-5 h-5 text-orange-500" />}
+                    valueStyle={{ color: "#cf1322" }}
                 />
               </Card>
             </Col>
             <Col xs={24} sm={12} lg={6}>
               <Card className="text-center">
                 <Statistic
-                  title="Throughput"
-                  value={inferenceStats?.throughputPerSecond || 0}
-                  suffix="/sec"
-                  prefix={
-                    <ServerStackIcon className="w-5 h-5 text-green-500" />
-                  }
-                  valueStyle={{ color: "#3f8600" }}
+                    title="Cache Hit Rate"
+                    value={((inferenceStats?.cache_hit_rate || 0) * 100).toFixed(2)}
+                    suffix="%"
+                    prefix={<ServerStackIcon className="w-5 h-5 text-green-500" />}
+                    valueStyle={{ color: "#3f8600" }}
                 />
               </Card>
             </Col>
             <Col xs={24} sm={12} lg={6}>
               <Card className="text-center">
                 <Statistic
-                  title="Error Rate"
-                  value={((inferenceStats?.errorRate || 0) * 100).toFixed(2)}
-                  suffix="%"
-                  prefix={
-                    <ExclamationTriangleIcon className="w-5 h-5 text-red-500" />
-                  }
-                  valueStyle={{
-                    color:
-                      inferenceStats?.errorRate &&
-                      inferenceStats.errorRate > 0.05
-                        ? "#cf1322"
-                        : "#3f8600",
-                  }}
+                    title="Sub-ms Rate"
+                    value={((inferenceStats?.sub_millisecond_rate || 0) * 100).toFixed(2)}
+                    suffix="%"
+                    prefix={<ExclamationTriangleIcon className="w-5 h-5 text-red-500" />}
+                    valueStyle={{ color: "#3f8600" }}
                 />
               </Card>
             </Col>

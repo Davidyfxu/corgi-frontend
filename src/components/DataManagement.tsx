@@ -219,22 +219,6 @@ const DataManagement: React.FC = () => {
                   {etlResult.success ? (
                     <Alert
                       message="ETL Pipeline Started"
-                      description={
-                        <Descriptions size="small" column={1}>
-                          <Descriptions.Item label="Job ID">
-                            {etlResult.jobId || "N/A"}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="Status">
-                            <Badge
-                              status="processing"
-                              text={etlResult.status || "Running"}
-                            />
-                          </Descriptions.Item>
-                          <Descriptions.Item label="Started At">
-                            {etlResult.startedAt || new Date().toLocaleString()}
-                          </Descriptions.Item>
-                        </Descriptions>
-                      }
                       type="success"
                       showIcon
                     />

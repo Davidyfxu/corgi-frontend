@@ -339,7 +339,7 @@ const FraudTester: React.FC = () => {
             ) : (
               <div>
                 {batchResult.success ? (
-                  <div className="space-y-4">
+                  <div className="space-y-4 flex flex-col gap-3">
                     <Alert
                       message="Batch Processing Complete"
                       description={`Processed ${batchResult.results?.length || 3} transactions`}

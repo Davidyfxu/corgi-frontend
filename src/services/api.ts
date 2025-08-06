@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API Configuration
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://corgi-api.zeabur.app/api";
 const API_KEY = "demo-key-12345"; // Demo API key from backend
 
 // Create axios instance with default configuration
@@ -29,11 +29,9 @@ api.interceptors.request.use(
 // Response interceptor for error handling
 api.interceptors.response.use(
   (response) => {
-    console.log("API Response:", response.status, response.data);
     return response;
   },
   (error) => {
-    console.error("API Response Error:", error.response?.data || error.message);
     return Promise.reject(error);
   },
 );

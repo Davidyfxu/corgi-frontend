@@ -31,6 +31,7 @@ const FraudTester: React.FC = () => {
   const [result, setResult] = useState<any>(null);
   const [batchLoading, setBatchLoading] = useState(false);
   const [batchResult, setBatchResult] = useState<any>(null);
+  const [tempTransID, setTempTransID] = useState(`txn_${Date.now()}`);
 
   const handleSingleInference = async (values: Transaction) => {
     setLoading(true);
@@ -111,9 +112,9 @@ const FraudTester: React.FC = () => {
     ];
     const currencies = ["USD", "EUR", "GBP", "CAD"];
     const countries = ["US", "CA", "GB", "DE", "FR"];
-
+    const transactionID = `txn_${Date.now()}`;
     form.setFieldsValue({
-      transaction_id: `txn_${Date.now()}`,
+      transaction_id: transactionID,
       amount: Math.round((Math.random() * 2000 + 10) * 100) / 100,
       currency: currencies[Math.floor(Math.random() * currencies.length)],
       payment_method:
@@ -121,6 +122,7 @@ const FraudTester: React.FC = () => {
       country_code: countries[Math.floor(Math.random() * countries.length)],
       user_id: `user_${Math.floor(Math.random() * 10000)}`,
     });
+    setTempTransID(transactionID)
   };
 
   const renderFraudResult = (data: any) => {
@@ -140,7 +142,6 @@ const FraudTester: React.FC = () => {
     const fraudScore =
       data.fraud_score || data.data?.fraud_score || Math.random();
     const isFraud = fraudScore > 0.5;
-
     return (
       <Result
         status={isFraud ? "warning" : "success"}
@@ -159,11 +160,11 @@ const FraudTester: React.FC = () => {
             </div>
             <Descriptions bordered size="small" column={1}>
               <Descriptions.Item label="Transaction ID">
-                {data.transaction_id || data.data?.transaction_id || "N/A"}
+                {data.transaction_id || data.data?.transaction_id || tempTransID}
               </Descriptions.Item>
               <Descriptions.Item label="Processing Time">
-                {data.processing_time_ms ||
-                  data.data?.processing_time_ms ||
+                {data?.latency_ms?.toFixed?.(2) ||
+                  data.data?.latency_ms?.toFixed?.(2) ||
                   "< 1"}{" "}
                 ms
               </Descriptions.Item>

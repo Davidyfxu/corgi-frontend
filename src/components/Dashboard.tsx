@@ -267,7 +267,7 @@ console.log(Math.round(inferenceStats?.avg_latency_ms || 0),(Math.random().toFix
                   color: "green",
                 },
                 {
-                  children: `API Base URL: http://localhost:3000/api`,
+                  children: `API Base URL: http://localhost:3000/api (dev), https://corgi-api.zeabur.app/api (prod)`,
                   color: "blue",
                 },
                 {
